@@ -22,6 +22,16 @@ sudo apt update
 sudo apt install code # or code-insiders
 
 
+sudo apt install curl
+sudo apt install libfuse2
+
+
+
+
+
+
+
+
 
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
