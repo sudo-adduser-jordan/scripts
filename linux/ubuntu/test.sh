@@ -4,6 +4,9 @@ gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 sudo apt-get install git
 
+
+sudo apt install curl
+sudo apt install libfuse2
 sudo apt-get install gdebi-core 
 
 cd /home/user1/Downloads
@@ -22,8 +25,6 @@ sudo apt update
 sudo apt install code # or code-insiders
 
 
-sudo apt install curl
-sudo apt install libfuse2
 
 
 
