@@ -1,5 +1,9 @@
 #!/bin/bash  
 
+# ╭─────────────────────────────────────.★..─╮
+#          	   *Install Script*
+# ╰─..★.─────────────────────────────────────╯
+
 #         _.-'78o``"`--._
 #     ,o888o.  .o888o,   ''-.
 #   ,88888P  `78888P..______.]
@@ -22,7 +26,10 @@
 
 # (∩｀-´)⊃━ ☆ﾟ.*･｡ﾟ
 
-# Define colors...
+# ╭─────────────────────────────────────.★..─╮
+#           	   *Colors*
+# ╰─..★.─────────────────────────────────────╯
+
 RED=`tput bold && tput setaf 1`
 GREEN=`tput bold && tput setaf 2`
 YELLOW=`tput bold && tput setaf 3`
@@ -42,99 +49,104 @@ function BLUE(){
 	echo -e "\n${BLUE}${1}${NC}"
 }
 
-# Testing if root...
+# ╭─────────────────────────────────────.★..─╮
+#           	*Test for Root*
+# ╰─..★.─────────────────────────────────────╯
+
 if [ $UID -ne 0 ]
 then
 	RED "You must run this script as root!" && echo
 	exit
 fi
 
-# Update and Clean
+# ╭─────────────────────────────────────.★..─╮
+#           	*Update and Clean*
+# ╰─..★.─────────────────────────────────────╯
 
-# Remove Snaps
+# System Update and Upgrade
+BLUE "Updating and Upgrading System..."
+sudo apt update
+sudo apt install --fix-missing -y
+sudo apt upgrade --allow-downgrades -y
+sudo apt full-upgrade --allow-downgrades -y
+
+# System Clean Up
+BLUE "Cleaning System..."
+sudo apt install -f
+sudo apt autoremove -y
+sudo apt autoclean
+sudo apt clean
+
+GREEN "Update and Clean completed!"
+
+# ╭─────────────────────────────────────.★..─╮
+#            *Purge Applications*
+# ╰─..★.─────────────────────────────────────╯
+
 BLUE "Removing Snaps..."
 
-
-
-# Install Applications
-
-# Configure Settings
-
-# Confirmation
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-BLUE "Updating repositories..."
-sudo apt update
+# ╭─────────────────────────────────────.★..─╮
+#            *Install Applications*
+# ╰─..★.─────────────────────────────────────╯
 
 BLUE "Installing git..."
-sudo apt install -y git
-
-# BLUE "Installing Sublime Text..." # according to https://www.sublimetext.com/docs/3/linux_repositories.html-
-# wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-# sudo apt-get install -y apt-transport-https
-# echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-# sudo apt-get update
-# sudo apt-get install -y sublime-text
-
-# BLUE "Forcing a color prompt in ~/.bashrc..."
-# grep "export PS1" ~/.bashrc
-# if [ $? -eq 1 ]
-# then
-# 	echo "export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> ~/.bashrc
-# fi
+sudo apt-get install -y git
 
 BLUE "Installing curl..."
-sudo apt-get install -y curl
+sudo apt install -y curl
 
-BLUE "Installing Go..."
-sudo apt install -y golang-go
-BLUE "Adding GOPATH and GOBIN to .bashrc, so future installs are easy.."
-grep "export GOPATH" ~/.bashrc
-if [ $? -eq 1 ]
-then
-	echo "export GOPATH=\$HOME/.go/" >> ~/.bashrc
-fi
-grep "export GOBIN" ~/.bashrc
-if [ $? -eq 1 ]
-then
-	echo "export GOBIN=\$HOME/.go/bin" >> ~/.bashrc
-	echo "export PATH=\$PATH:\$GOBIN" >> ~/.bashrc
-fi
+BLUE "Installing gnome-tweaks..."
+sudo apt-get install gnome-tweaks
 
-BLUE "Installing docker..."
-sudo apt-get install -y docker.io
-sudo groupadd docker
-sudo usermod -aG docker `logname`
+# BLUE "Installing libfuse2..."
+# sudo apt install -y libfuse2
 
-BLUE "Installing Virtualbox..."
-sudo apt install -y virtualbox-qt
+# BLUE "Installing gdebi-core..."
+# sudo apt-get install -y gdebi-core 
 
-BLUE "Installing Oracle Java 8..."
-echo "" | sudo add-apt-repository ppa:webupd8team/java
-sudo apt-get update
-sudo apt-get install -y oracle-java8-installer
+BLUE "Installing Github Desktop..."
+cd /home/user1/Downloads
+sudo wget https://github.com/shiftkey/desktop/releases/download/release-3.1.1-linux1/GitHubDesktop-linux-3.1.1-linux1.deb
 
-# BLUE "Installing pip..."
-# sudo apt-get install -y python-pip
+BLUE "Installing Visual Studio Code..."
+sudo apt-get install wget gpg
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+rm -f packages.microsoft.gpg
+sudo apt install apt-transport-https
+sudo apt update
+sudo apt install code # or code-insiders
 
-# BLUE "Installing sqlite..."
-# sudo apt install -y sqlite	
+GREEN "Application install completed!"
 
-# BLUE "Installing sqlitebrowser..."
-# sudo apt-get install -y sqlitebrowser
+
+# ╭─────────────────────────────────────.★..─╮
+#           	*Configure Settings*
+# ╰─..★.─────────────────────────────────────╯
+
+cd ~
+gnome-extensions disable ubuntu-dock@ubuntu.com
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
+# ╭─────────────────────────────────────.★..─╮
+#           	*Confirmation*
+# ╰─..★.─────────────────────────────────────╯
+
+
+
+# ╭─────────────────────────────────────.★..─╮
+#           	   *GNOME*
+# ╰─..★.─────────────────────────────────────╯
+
+
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
+gsettings set org.gnome.desktop.interface color-scheme prefer-light
+
+
+gsettings get org.gnome.shell favorite-apps
+
+
+
+
