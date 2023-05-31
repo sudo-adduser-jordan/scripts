@@ -133,19 +133,19 @@ gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 #           	*Confirmation*
 # ╰─..★.─────────────────────────────────────╯
 
+GREEN "Installation process completed!"
+GREEN "Happy Hacking!"
+GREEN """ 
 
+"""
 
 # ╭─────────────────────────────────────.★..─╮
-#           	   *GNOME*
+#           	 *Snippets*
 # ╰─..★.─────────────────────────────────────╯
 
-
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
-
-gsettings set org.gnome.desktop.interface color-scheme prefer-light
-
-
-gsettings get org.gnome.shell favorite-apps
+# gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+# gsettings set org.gnome.desktop.interface color-scheme prefer-light
+# gsettings get org.gnome.shell favorite-apps
 
 
 
