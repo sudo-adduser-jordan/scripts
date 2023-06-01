@@ -83,26 +83,20 @@ GREEN "Update and Clean completed!"
 #            *Purge Applications*
 # ╰─..★.─────────────────────────────────────╯
 
-BLUE "Removing Snaps..."
+# BLUE "Removing Snaps..."
 
 # ╭─────────────────────────────────────.★..─╮
 #            *Install Applications*
 # ╰─..★.─────────────────────────────────────╯
 
 BLUE "Installing git..."
-sudo apt-get install -y git
+sudo apt install -y git
 
 BLUE "Installing curl..."
 sudo apt install -y curl
 
 BLUE "Installing gnome-tweaks..."
-sudo apt-get install gnome-tweaks
-
-# BLUE "Installing libfuse2..."
-# sudo apt install -y libfuse2
-
-# BLUE "Installing gdebi-core..."
-# sudo apt-get install -y gdebi-core 
+sudo apt install gnome-tweaks
 
 BLUE "Installing Github Desktop..."
 cd /home/user1/Downloads
@@ -125,8 +119,10 @@ GREEN "Application install completed!"
 #           	*Configure Settings*
 # ╰─..★.─────────────────────────────────────╯
 
+BLUE "Conifguring settings..."
 cd ~
 gnome-extensions disable ubuntu-dock@ubuntu.com
+# gsettings set org.gnome.desktop.interface color-scheme prefer-light
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 # ╭─────────────────────────────────────.★..─╮
