@@ -53,6 +53,7 @@ function BLUE(){
 #           	*Test for Root*
 # ╰─..★.─────────────────────────────────────╯
 
+
 if [ $UID -ne 0 ]
 then
 	RED "You must run this script as root!" && echo
@@ -85,42 +86,45 @@ GREEN "Update and Clean completed!"
 #            *Purge Applications*
 # ╰─..★.─────────────────────────────────────╯
 
-# BLUE "Removing Firefox..."
-# sudo snap remove firefox
-
 BLUE "Removing Snaps..."
 sudo snap remove --purge firefox
-sudo snap remove --purge snap-store
+sudo snap remove --purge bare
 sudo snap remove --purge gnome-3-38-2004
 sudo snap remove --purge gnome-42-2204 
 sudo snap remove --purge gtk-common-themes
-sudo snap remove --purge bare
+sudo snap remove --purge snap-store
+sudo snap remove --purge snapd-desktop-integration
 sudo snap remove --purge core20
 sudo snap remove --purge core22
-sudo snap remove --purge snapd-desktop-integration
 sudo snap remove --purge snapd
-sudo apt remove --autoremove snapd
+sudo apt remove --autoremove snapd -y
 
 cat <<EOT >> /etc/apt/preferences.d/nosnap.pref
 Package: snapd
 Pin: release a=*
 Pin-Priority: -10
 EOT
+# sudo -u ${USERNAME} bash
 
 sudo apt update
+sudo apt upgrade
+
+GREEN "Applications purged!"
 
 # ╭─────────────────────────────────────.★..─╮
 #            *Install Applications*
 # ╰─..★.─────────────────────────────────────╯
 
 BLUE "Installing gnome..."
-sudo apt install --install-suggests gnome-software
+sudo apt install --install-suggests gnome-software -y
 
 BLUE "Installing firefox..."
 sudo add-apt-repository ppa:mozillateam/ppa
+# add press enter
 sudo apt update
-sudo apt install -t 'o=LP-PPA-mozillateam' firefox
+sudo apt install -t 'o=LP-PPA-mozillateam' firefox -y
 echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:${distro_codename}";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
+
 cat <<EOT >> /etc/apt/preferences.d/mozillateamppa
 Package: firefox*
 Pin: release o=LP-PPA-mozillateam
@@ -133,8 +137,8 @@ sudo apt install -y git
 BLUE "Installing curl..."
 sudo apt install -y curl
 
-# BLUE "Installing gnome-tweaks..."
-# sudo apt install gnome-tweaks
+BLUE "Installing gnome-tweaks..."
+sudo apt install gnome-tweaks
 
 BLUE "Installing Github Desktop..."
 cd /home/user1/Downloads
