@@ -68,6 +68,11 @@ cp org.gnome.gedit.desktop /home/user1/Desktop/
 cp org.gnome.Terminal.desktop /home/user1/Desktop/
 cp org.gnome.Calculator.desktop /home/user1/Desktop/
 cp org.gnome.Nautilus.desktop /home/user1/Desktop/
+cp steam.desktop /home/user1/Desktop/
+
+# cd /.local/share/applications/ 
+# cp jetbrains-toolbox.desktop /home/user1/Desktop/
+# cp jetbrains-idea-ce.desktop /home/user1/Desktop/
 
 cd /home/user1/Desktop/
 FILES="*.desktop"

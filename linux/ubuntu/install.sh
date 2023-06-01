@@ -179,6 +179,9 @@ sudo apt install golang -y
 BLUE "Installing java8..."
 sudo apt install openjdk-8-jre-headless -y
 
+BLUE "Installing steam..."
+sudo apt install steam -y
+
 GREEN "Application install completed!"
 
 # ╭─────────────────────────────────────.★..─╮
