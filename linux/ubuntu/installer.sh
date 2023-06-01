@@ -53,6 +53,7 @@ function BLUE(){
 #           	*Test for Root*
 # ╰─..★.─────────────────────────────────────╯
 
+BLUE "Testing for root..."
 
 if [ $UID -ne 0 ]
 then
@@ -115,11 +116,13 @@ GREEN "Applications purged!"
 #            *Install Applications*
 # ╰─..★.─────────────────────────────────────╯
 
+BLUE "Installing applications..."
+
 BLUE "Installing gnome..."
 sudo apt install --install-suggests gnome-software -y
 
 BLUE "Installing firefox..."
-sudo add-apt-repository ppa:mozillateam/ppa
+sudo add-apt-repository ppa:mozillateam/ppa -y
 # add press enter
 sudo apt update
 sudo apt install -t 'o=LP-PPA-mozillateam' firefox -y
@@ -162,6 +165,7 @@ GREEN "Application install completed!"
 # ╰─..★.─────────────────────────────────────╯
 
 BLUE "Conifguring settings..."
+
 cd ~
 gnome-extensions disable ubuntu-dock@ubuntu.com
 # gsettings set org.gnome.desktop.interface color-scheme prefer-light
@@ -190,10 +194,32 @@ chmod +x *.desktop
 # ╰─..★.─────────────────────────────────────╯
 
 GREEN "Installation process completed!"
-GREEN "Happy Hacking!"
-GREEN """ 
+GREEN | cat << "EOF"
 
-"""
+         _.-'78o``"`--._
+     ,o888o.  .o888o,   ''-.
+   ,88888P  `78888P..______.]
+  /_..__..----""        __.'
+  `-._       /""| _..-''
+      "`-----\  `\
+              |   ;.-""--..
+              | ,8o.  o88. `.
+              `;888P  `788P  :
+        .o""-.|`-._         ./
+       J88 _.-/    ";"-P----'
+       `--'\`|     /  /
+           | /     |  |
+           \|     /   |akn
+            `-----`---'
+
+ "A byte of time is a byte of gold,
+  but you can’t buy that byte of time,
+  with a byte of gold.”
+
+ (∩｀-´)⊃━ ☆ﾟ.*･｡ﾟ
+EOF
+
+GREEN "Happy Hacking!\n"
 
 # ╭─────────────────────────────────────.★..─╮
 #           	 *Snippets*
