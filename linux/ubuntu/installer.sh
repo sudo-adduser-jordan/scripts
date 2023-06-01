@@ -70,6 +70,8 @@ sudo apt install --fix-missing -y
 sudo apt upgrade --allow-downgrades -y
 sudo apt full-upgrade --allow-downgrades -y
 
+sudo snap refresh
+
 # System Clean Up
 BLUE "Cleaning System..."
 sudo apt install -f
@@ -83,11 +85,53 @@ GREEN "Update and Clean completed!"
 #            *Purge Applications*
 # ╰─..★.─────────────────────────────────────╯
 
-# BLUE "Removing Snaps..."
+# BLUE "Removing Firefox..."
+# sudo snap remove firefox
+
+BLUE "Removing Snaps..."
+sudo snap remove --purge firefox
+sudo snap remove --purge snap-store
+sudo snap remove --purge gnome-3-38-2004
+sudo snap remove --purge gnome-42-2204 
+sudo snap remove --purge gtk-common-themes
+sudo snap remove --purge bare
+sudo snap remove --purge core20
+sudo snap remove --purge core22
+sudo snap remove --purge snapd-desktop-integration
+sudo snap remove --purge snapd
+sudo apt remove --autoremove snapd
+
+cat <<EOT >> /etc/apt/preferences.d/nosnap.pref
+Package: snapd
+Pin: release a=*
+Pin-Priority: -10
+EOT
+
+cat <<EOT >> /etc/apt/preferences.d/bullseye.pref
+Package: *
+Pin: release n=bullseye
+Pin-Priority: 900
+EOT
+
+sudo apt update
 
 # ╭─────────────────────────────────────.★..─╮
 #            *Install Applications*
 # ╰─..★.─────────────────────────────────────╯
+
+BLUE "Installing gnome..."
+sudo apt install --install-suggests gnome-software
+
+BLUE "Installing firefox..."
+sudo add-apt-repository ppa:mozillateam/ppa
+sudo apt update
+sudo apt install -t 'o=LP-PPA-mozillateam' firefox
+echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:${distro_codename}";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
+cat <<EOT >> /etc/apt/preferences.d/mozillateamppa
+Package: firefox*
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 501
+EOT
 
 BLUE "Installing git..."
 sudo apt install -y git
@@ -95,8 +139,8 @@ sudo apt install -y git
 BLUE "Installing curl..."
 sudo apt install -y curl
 
-BLUE "Installing gnome-tweaks..."
-sudo apt install gnome-tweaks
+# BLUE "Installing gnome-tweaks..."
+# sudo apt install gnome-tweaks
 
 BLUE "Installing Github Desktop..."
 cd /home/user1/Downloads
@@ -125,6 +169,24 @@ gnome-extensions disable ubuntu-dock@ubuntu.com
 # gsettings set org.gnome.desktop.interface color-scheme prefer-light
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
+cd /usr/share/applications/ 
+cp firefox.desktop /home/user1/Desktop/
+cp code.desktop /home/user1/Desktop/
+cp github-desktop.desktop /home/user1/Desktop/
+cp org.gnome.gedit.desktop /home/user1/Desktop/
+cp org.gnome.Terminal.desktop /home/user1/Desktop/
+cp org.gnome.Calculator.desktop /home/user1/Desktop/
+cp org.gnome.Nautilus.desktop /home/user1/Desktop/
+
+cd /home/user1/Desktop/
+FILES="*.desktop"
+for f in $FILES
+do
+    gio set $f metadata::trusted true
+done
+chmod +x *.desktop
+
+
 # ╭─────────────────────────────────────.★..─╮
 #           	*Confirmation*
 # ╰─..★.─────────────────────────────────────╯
@@ -142,7 +204,3 @@ GREEN """
 # gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 # gsettings set org.gnome.desktop.interface color-scheme prefer-light
 # gsettings get org.gnome.shell favorite-apps
-
-
-
-
