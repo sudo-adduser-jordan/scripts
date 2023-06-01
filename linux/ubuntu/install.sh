@@ -118,12 +118,13 @@ GREEN "Applications purged!"
 
 BLUE "Installing applications..."
 
+# sudo apt install dbus-x11
+
 BLUE "Installing gnome..."
 sudo apt install --install-suggests gnome-software -y
 
 BLUE "Installing firefox..."
 sudo add-apt-repository ppa:mozillateam/ppa -y
-# add press enter
 sudo apt update
 sudo apt install -t 'o=LP-PPA-mozillateam' firefox -y
 echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:${distro_codename}";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
@@ -166,7 +167,7 @@ GREEN "Application install completed!"
 
 BLUE "Conifguring settings..."
 
-cd ~
+cd /home/user1/
 gnome-extensions disable ubuntu-dock@ubuntu.com
 # gsettings set org.gnome.desktop.interface color-scheme prefer-light
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
@@ -186,7 +187,7 @@ for f in $FILES
 do
     gio set $f metadata::trusted true
 done
-chmod +x *.desktop
+sudo chmod +x *.desktop
 
 
 # ╭─────────────────────────────────────.★..─╮
@@ -228,3 +229,7 @@ GREEN "Happy Hacking!\n"
 # gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 # gsettings set org.gnome.desktop.interface color-scheme prefer-light
 # gsettings get org.gnome.shell favorite-apps
+
+# dbus-launch
+
+# sudo bash -x installer.sh 
