@@ -107,12 +107,6 @@ Pin: release a=*
 Pin-Priority: -10
 EOT
 
-cat <<EOT >> /etc/apt/preferences.d/bullseye.pref
-Package: *
-Pin: release n=bullseye
-Pin-Priority: 900
-EOT
-
 sudo apt update
 
 # ╭─────────────────────────────────────.★..─╮
