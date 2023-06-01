@@ -118,10 +118,11 @@ GREEN "Applications purged!"
 
 BLUE "Installing applications..."
 
-# sudo apt install dbus-x11
-
 BLUE "Installing gnome..."
 sudo apt install --install-suggests gnome-software -y
+
+BLUE "Installing gnome-tweaks..."
+sudo apt install gnome-tweaks
 
 BLUE "Installing firefox..."
 sudo add-apt-repository ppa:mozillateam/ppa -y
@@ -141,9 +142,6 @@ sudo apt install -y git
 BLUE "Installing curl..."
 sudo apt install -y curl
 
-BLUE "Installing gnome-tweaks..."
-sudo apt install gnome-tweaks
-
 BLUE "Installing Github Desktop..."
 cd /home/user1/Downloads
 sudo wget https://github.com/shiftkey/desktop/releases/download/release-3.1.1-linux1/GitHubDesktop-linux-3.1.1-linux1.deb
@@ -158,37 +156,30 @@ sudo apt install apt-transport-https
 sudo apt update
 sudo apt install code # or code-insiders
 
+# BLUE "Installing jetbrains toolbox..."
+# wget -P ~/Downloads/ https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.28.1.15219.tar.gz
+# cd ~/Downloads/
+# sudo tar -xzf jetbrains-toolbox-1.28.1.15219.tar.gz -C /opt
+# cd /opt/jetbrains-toolbox-1.28.1.15219/
+# ./jetbrains-toolbox
+
+BLUE "Installing node.js lts..."
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - &&\
+sudo apt-get install -y nodejs
+
+BLUE "Installing python3..."
+sudo apt install python3 -y
+
+BLUE "Installing python3 pip..."
+sudo apt install python3-pip -y
+
+BLUE "Installing golang..."
+sudo apt install golang -y
+
+BLUE "Installing java8..."
+sudo apt install openjdk-8-jre-headless -y
+
 GREEN "Application install completed!"
-
-
-# ╭─────────────────────────────────────.★..─╮
-#           	*Configure Settings*
-# ╰─..★.─────────────────────────────────────╯
-
-BLUE "Conifguring settings..."
-
-cd /home/user1/
-gnome-extensions disable ubuntu-dock@ubuntu.com
-# gsettings set org.gnome.desktop.interface color-scheme prefer-light
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
-
-cd /usr/share/applications/ 
-cp firefox.desktop /home/user1/Desktop/
-cp code.desktop /home/user1/Desktop/
-cp github-desktop.desktop /home/user1/Desktop/
-cp org.gnome.gedit.desktop /home/user1/Desktop/
-cp org.gnome.Terminal.desktop /home/user1/Desktop/
-cp org.gnome.Calculator.desktop /home/user1/Desktop/
-cp org.gnome.Nautilus.desktop /home/user1/Desktop/
-
-cd /home/user1/Desktop/
-FILES="*.desktop"
-for f in $FILES
-do
-    gio set $f metadata::trusted true
-done
-sudo chmod +x *.desktop
-
 
 # ╭─────────────────────────────────────.★..─╮
 #           	*Confirmation*
@@ -229,7 +220,5 @@ GREEN "Happy Hacking!\n"
 # gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 # gsettings set org.gnome.desktop.interface color-scheme prefer-light
 # gsettings get org.gnome.shell favorite-apps
-
-# dbus-launch
 
 # sudo bash -x installer.sh 
