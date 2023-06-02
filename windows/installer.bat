@@ -1,8 +1,6 @@
 call winget upgrade --all
-call winget install -e --id Malwarebytes.Malwarebytes
 call winget install -e --id Microsoft.WindowsTerminal
-call winget install -e --id Piriform.CCleaner
-call winget install -e --id Logitech.GHUB
+call winget install -e --id Microsoft.PowerToys
 
 call winget install -e --id Mozilla.Firefox
 call winget install -e --id Google.Chrome
@@ -29,5 +27,9 @@ call winget install -e --id pnpm.pnpm
 call winget install -e --id GnuPG.GnuPG
 call winget install -e --id AntibodySoftware.WizTree
 call winget install -e --id Balena.Etcher
+call winget install -e --id ventoy.Ventoy
 
 @REM call winget install -e --id RuneLite.RuneLite
+call winget install -e --id Piriform.CCleaner
+call winget install -e --id Logitech.GHUB
+call winget install -e --id Malwarebytes.Malwarebytes
