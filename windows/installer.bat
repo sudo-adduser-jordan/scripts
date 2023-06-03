@@ -28,7 +28,7 @@ call winget install -e --id pnpm.pnpm
 call winget install -e --id GnuPG.GnuPG
 call winget install -e --id AntibodySoftware.WizTree
 call winget install -e --id Balena.Etcher
-call winget install -e --id ventoy.Ventoy
+@REM call winget install -e --id ventoy.Ventoy
 
 @REM call winget install -e --id RuneLite.RuneLite
 call winget install -e --id Piriform.CCleaner
