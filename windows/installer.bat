@@ -11,7 +11,8 @@ call winget install -e --id GitHub.GitHubDesktop
 @REM call winget install -e --id Microsoft.VisualStudio.2022.Community.Preview
 call winget install -e --id Microsoft.VisualStudioCode
 call winget install -e --id JetBrains.IntelliJIDEA.Community
-call winget install -e --id SublimeHQ.SublimeText.4
+@REM call winget install -e --id SublimeHQ.SublimeText.4
+call winget install -e --id JackieLiu.NotepadsApp
 
 call winget install -e --id Docker.DockerDesktop
 call winget install -e --id Oracle.VirtualBox
@@ -33,3 +34,5 @@ call winget install -e --id ventoy.Ventoy
 call winget install -e --id Piriform.CCleaner
 call winget install -e --id Logitech.GHUB
 call winget install -e --id Malwarebytes.Malwarebytes
+
+
