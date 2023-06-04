@@ -94,5 +94,6 @@ for /F "delims=" %%L in ('
     setlocal EnableDelayedExpansion
     echo(!LINE:*.=!
     endlocal
+    )
 )
 exit /B
