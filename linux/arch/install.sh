@@ -103,6 +103,12 @@ sudo chmod 777 ~/Downloads/github-desktop/
 cd ~/Downloads/github-desktop/
 makepkg -sri --noconfirm
 
+BLUE "Installing openrgb..."
+sudo git clone https://aur.archlinux.org/openrgb.git  ~/Downloads/openrgb/
+sudo chmod 777 ~/Downloads/openrgb/
+cd ~/Downloads/openrgb/
+makepkg -sri --noconfirm
+
 # ╭─────────────────────────────────────.★..─╮
 #           	*Confirmation*
 # ╰─..★.─────────────────────────────────────╯
