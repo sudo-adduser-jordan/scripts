@@ -53,7 +53,7 @@ for %%x in (
     call git config --global --add safe.directory D:/%%x
     call cd D:\%%x
     call git pull origin 
-    pause
+    @REM pause
 )
 
 
