@@ -29,25 +29,30 @@
 @REM                   *Clone*
 @REM  ╰─..★.─────────────────────────────────────╯
 
-call git clone https://github.com/sudo-adduser-jordan/Scripts.git 
-call git clone https://github.com/sudo-adduser-jordan/Markdown-Notes.git 
-call git clone https://github.com/sudo-adduser-jordan/Config-Files.git 
-call git clone https://github.com/sudo-adduser-jordan/Portfolio-Website.git 
-call git clone https://github.com/sudo-adduser-jordan/C-SHARP-Projects.git 
-call git clone https://github.com/sudo-adduser-jordan/Nasa-Api-Explorer.git 
-call git clone https://github.com/sudo-adduser-jordan/Diagrams.git 
-call git clone https://github.com/sudo-adduser-jordan/sudo-adduser-jordan.git 
-call git clone https://github.com/sudo-adduser-jordan/Personal-Assets.git 
-call git clone https://github.com/sudo-adduser-jordan/Toolchain.git 
-call git clone https://github.com/sudo-adduser-jordan/Password-Creator.git 
-call git clone https://github.com/sudo-adduser-jordan/Algorithm-Visualizer.git 
-call git clone https://github.com/sudo-adduser-jordan/NASA-Background.git 
-call git clone https://github.com/sudo-adduser-jordan/Hyperskill-Projects.git 
-call git clone https://github.com/sudo-adduser-jordan/Next-Template.git 
-call git clone https://github.com/sudo-adduser-jordan/Code-Fragments.git 
-call git clone https://github.com/sudo-adduser-jordan/Recipes.git 
-call git clone https://github.com/sudo-adduser-jordan/Recycle-Bin.git 
-
+for %%x in (
+    Advent-of-Code 
+    Algorithm-Visualizer 
+    Scripts 
+    Markdown-Notes 
+    Config-Files 
+    Portfolio-Website 
+    C-SHARP-Projects 
+    Nasa-Api-Explorer 
+    Diagrams 
+    sudo-adduser-jordan 
+    Personal-Assets 
+    Toolchain 
+    Password-Creator
+    NASA-Background
+    Hyperskill-Projects
+    Next-Template
+    Code-Fragments
+    Recipes 
+    Recycle-Bin
+) do (
+    call git clone https://github.com/sudo-adduser-jordan/%%x.git 
+    @REM pause
+)
 
 @REM  ╭─────────────────────────────────────.★..─╮
 @REM                    *End*
