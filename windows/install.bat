@@ -48,6 +48,8 @@ call winget install -e --id JackieLiu.NotepadsApp --accept-package-agreements --
 call winget install -e --id Docker.DockerDesktop --accept-package-agreements --accept-source-agreements
 @REM call winget install -e --id Oracle.VirtualBox --accept-package-agreements --accept-source-agreements
 
+call winget install -e --id PostgreSQL.pgAdmin
+
 call winget install -e --id Oracle.JavaRuntimeEnvironment --accept-package-agreements --accept-source-agreements
 call winget install -e --id Python.Python.3.11 --accept-package-agreements --accept-source-agreements
 call winget install -e --id GoLang.Go.1.20 --accept-package-agreements --accept-source-agreements
