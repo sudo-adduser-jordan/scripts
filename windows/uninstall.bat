@@ -29,25 +29,35 @@
 @REM                   *Uninstall*
 @REM  ╰─..★.─────────────────────────────────────╯
 
-call winget remove Microsoft.GetHelp_8wekyb3d8bbwe --accept-source-agreements
-call winget remove Microsoft.MixedReality.Portal_8wekyb3d8bbwe --accept-source-agreements
-call winget remove Microsoft.SkypeApp_kzf8qxf38zg5c --accept-source-agreements
-call winget remove Microsoft.WindowsFeedbackHub_8wekyb3d8bbwe --accept-source-agreements
-call winget remove Microsoft.YourPhone_8wekyb3d8bbwe --accept-source-agreements
-call winget remove Microsoft.ZuneVideo_8wekyb3d8bbwe --accept-source-agreements
-call winget remove Microsoft.549981C3F5F10_8wekyb3d8bbwe --accept-source-agreements
-call winget remove Microsoft.WindowsMaps_8wekyb3d8bbwe --accept-source-agreements
-call winget remove Microsoft.MicrosoftSolitaireCollection_8wekyb3d8bbwe --accept-source-agreements
-call winget remove Microsoft.Office.OneNote_8wekyb3d8bbwe --accept-source-agreements
-call winget remove Microsoft.Getstarted_8wekyb3d8bbwe --accept-source-agreements
-call winget remove Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe --accept-source-agreements
-call winget remove microsoft.windowscommunicationsapps_8wekyb3d8bbwe --accept-source-agreements
-call winget remove Microsoft.WindowsAlarms_8wekyb3d8bbwe --accept-source-agreements
-call winget remove Microsoft.People_8wekyb3d8bbwe --accept-source-agreements
-call winget remove Disney.37853FC22B2CE_6rarf9sa4v8jt --accept-source-agreements
-call winget remove SpotifyAB.SpotifyMusic_zpdnekdrzrea0 --accept-source-agreements
+call winget upgrade --all
+for %%x in (
+
+    Microsoft.GetHelp_8wekyb3d8bbwe
+    Microsoft.MixedReality.Portal_8wekyb3d8bbwe
+    Microsoft.SkypeApp_kzf8qxf38zg5c
+    Microsoft.WindowsFeedbackHub_8wekyb3d8bbwe
+    Microsoft.YourPhone_8wekyb3d8bbwe
+    Microsoft.ZuneVideo_8wekyb3d8bbwe
+    Microsoft.549981C3F5F10_8wekyb3d8bbwe
+    Microsoft.WindowsMaps_8wekyb3d8bbwe
+    Microsoft.MicrosoftSolitaireCollection_8wekyb3d8bbwe
+    Microsoft.Office.OneNote_8wekyb3d8bbwe
+    Microsoft.Getstarted_8wekyb3d8bbwe
+    Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe
+    microsoft.windowscommunicationsapps_8wekyb3d8bbwe
+    Microsoft.WindowsAlarms_8wekyb3d8bbwe
+    Microsoft.People_8wekyb3d8bbwe
+    Disney.37853FC22B2CE_6rarf9sa4v8jt
+    SpotifyAB.SpotifyMusic_zpdnekdrzrea0
+    Microsoft.OneDrive
+
+) do (
+    call winget remove %%x --accept-source-agreements
+    @REM pause
+)
+
 @REM taskkill /f /im OneDrive.exe
-call winget remove Microsoft.OneDrive --accept-source-agreements
+@REM call winget remove Microsoft.OneDrive --accept-source-agreements
 
 @REM  ╭─────────────────────────────────────.★..─╮
 @REM                   *End*

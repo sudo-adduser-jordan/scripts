@@ -29,5 +29,5 @@
 @REM                    *Run*
 @REM  ╰─..★.─────────────────────────────────────╯
 
-cd C:\Users\user 1\Documents\GitHub\NASA-Background\Terminal
+cd C:\Users\user1\Documents\GitHub\NASA-Background\Terminal
 python main.py
