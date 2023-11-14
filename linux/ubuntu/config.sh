@@ -1,5 +1,6 @@
 #!/bin/bash 
 
+# Configure Settings
 cd /home/user1/
 gnome-extensions disable ubuntu-dock@ubuntu.com
 # gsettings set org.gnome.desktop.interface color-scheme prefer-light
