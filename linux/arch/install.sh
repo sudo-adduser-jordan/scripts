@@ -1,4 +1,5 @@
 #!/bin/bash  
+
 pacman -Syu --noconfirm
 pacman -S git --noconfirm
 pacman -S gufw --noconfirm
