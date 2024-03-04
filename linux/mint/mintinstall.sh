@@ -76,8 +76,18 @@ icons_install(){
    mv -v /home/$SUDO_USER/Downloads/* /home/$SUDO_USER/.icons
 }
 
+go_install (){
+    wget "https://go.dev/dl/go1.22.0.linux-amd64.tar.gz" -O /home/$SUDO_USER/Downloads/go.tar.gz
+    sudo rm -rf /usr/local/go 
+    sudo tar -C /usr/local -xzf /home/$SUDO_USER/Downloads/go.tar.gz
+    echo "GO SYSTEM WIDE PATH" >> /etc/profile
+    echo "export PATH=$PATH:/usr/local/go/bin" >> /etc/profile
+    go version
+}
+
 
 # INSTALL
+go_install
 icons_install
 discord_install
 docker_install
@@ -85,8 +95,6 @@ github_desktop_install
 ulauncher_isntall
 code_install
 
-# golang
-# garvljm
 
 
 
