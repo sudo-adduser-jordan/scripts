@@ -90,8 +90,6 @@ ulauncher_isntall
 code_install
 
 
-clean_downloads() {
-   sudo rm -r ~/Downloads/*
-}
+
 
 
