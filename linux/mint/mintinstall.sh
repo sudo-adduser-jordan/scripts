@@ -2,13 +2,13 @@
 
 # APT
 sudo apt install nala -y
-sudo nala update -y
+sudo nala update 
 sudo nala upgrade -y
 sudo nala install tree -y
 sudo nala install g++ -y
 sudo nala install gh -y
 sudo nala install git -y
-sudo nala install nodejs
+sudo nala install nodejs -y
 sudo nala install mgba-qt -y
 sudo nala install imagemagick -y
 sudo nala install steam-installer -y
@@ -16,11 +16,6 @@ sudo nala install steam-installer -y
 #FLATPAKS
 flatpak install melonDS -y
 flatpak install Bottles -y
-
-# PATHS
-$Discord="https://discord.com/api/download?platform=linux&format=deb"
-$Docker="https://desktop.docker.com/linux/main/amd64/139021/docker-desktop-4.28.0-amd64.deb"
-$Downloads="/home/$SUDO_USER/Downloads"
 
 # INSTALL FUNCTIONS
 code_install() {    
@@ -40,8 +35,9 @@ ulauncher_isntall() {
     sudo nala update 
     sudo nala install ulauncher -y
     # THEME 
-    mkdir -p ~/.config/ulauncher/user-themes
-    git clone https://github.com/sudo-adduser-jordan/ulauncher-mint-y-dark-green.git  ~/.config/ulauncher/user-themes/mint-y-dark-green
+    mkdir -p /home/$SUDO_USER/.config/ulauncher/user-themes
+    git clone https://github.com/sudo-adduser-jordan/ulauncher-mint-y-dark-green.git  /home/$SUDO_USER/.config/ulauncher/user-themes/mint-y-dark-green
+    chown -R $SUDO_USER /home/$SUDO_USER/.config/ulauncher/user-themes
 }
 
 github_desktop_install() {
@@ -63,33 +59,34 @@ docker_install() {
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
         $(. /etc/os-release && echo "$UBUNTU_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     sudo nala update
-    wget -O docker.deb $Docker -P $Downloads
-    sudo nala install $Downloads/docker.deb -y
+    wget "https://desktop.docker.com/linux/main/amd64/139021/docker-desktop-4.28.0-amd64.deb" -O /home/$SUDO_USER/Downloads/docker.deb 
+    nala install /home/$SUDO_USER/Downloads/docker.deb -y
 
 }
 
 discord_install(){
-    wget -O discord.deb $Discord
-    sudo nala install $Downloads/discord.deb
+    wget "https://discord.com/api/download?platform=linux&format=deb" -O /home/$SUDO_USER/Downloads/discord.deb 
+    sudo nala install /home/$SUDO_USER/Downloads/discord.deb -y
 }
 
 icons_install(){
-    sudo git clone https://github.com/sudo-adduser-jordan/icons $Downloads/icons
-    for file in $Downloads/icons/*.tar.xz; do tar -Jxf "$file" -C $Downloads; done
-    sudo rm -rf $Downloads/icons
-    mv -v $Downloads/* /home/$SUDO_USER/.icons
+   sudo git clone https://github.com/sudo-adduser-jordan/icons /home/$SUDO_USER/Downloads/icons
+   for file in /home/$SUDO_USER/Downloads/icons/*.tar.xz; do tar -Jxf "$file" -C /home/$SUDO_USER/Downloads; done
+   sudo trash /home/$SUDO_USER/Downloads/icons
+   mv -v /home/$SUDO_USER/Downloads/* /home/$SUDO_USER/.icons
 }
 
 
 # INSTALL
 icons_install
-discord_instal
+discord_install
 docker_install
 github_desktop_install
 ulauncher_isntall
 code_install
 
-
+# golang
+# garvljm
 
 
 
