@@ -6,7 +6,8 @@ sudo nala update
 sudo nala upgrade -y
 sudo nala install tree -y
 sudo nala install g++ -y
-sudo nala install gh -y
+# create function for gh
+# sudo nala install gh -y
 sudo nala install git -y
 sudo nala install nodejs -y
 sudo nala install mgba-qt -y
