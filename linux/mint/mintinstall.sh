@@ -13,6 +13,7 @@ sudo nala install imagemagick -y
 sudo nala install steam-installer -y
 
 #FLATPAKS
+flatpak update -y
 flatpak install melonDS -y
 flatpak install Bottles -y
 
