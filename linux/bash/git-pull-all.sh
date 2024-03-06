@@ -1,15 +1,11 @@
 #!/bin/sh
-
-FILE=repositories.txt
-USER=sudo-adduser-jordan
-DRIVE=D://
+ROOT=/media
+USER=user1
+DRIVE=CORSAIR
+FILE=names.txt
 
 gh auth status
-echo
-
 for RESPOSITORY in `cat $FILE`
 do
-    cd $DRIVE/$RESPOSITORY
-    git pull
-    echo
+  cd $ROOT/$USER/$DRIVE/$RESPOSITORY && pwd && git pull    
 done

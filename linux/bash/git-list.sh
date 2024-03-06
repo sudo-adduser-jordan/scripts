@@ -8,4 +8,5 @@
 #   -H "X-GitHub-Api-Version: 2022-11-28" \
 #   /user/repos | jq '.[].html_url' | awk '{print $NF}' FS=/ | awk -F\" '{print $1}'
 
-gh api --paginate /user/repos --jq '.[].name' 
+gh api --paginate /user/repos --jq '.[].html_url' 
+# gh api --paginate /user/repos --jq '.[].name' 
