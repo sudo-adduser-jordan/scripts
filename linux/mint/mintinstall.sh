@@ -1,4 +1,4 @@
-# Debian / Ubuntu / Mint Installer
+# Ubuntu / Mint Installer
 
 # APT
 sudo apt install nala -y
@@ -47,6 +47,7 @@ github_desktop_install() {
     sudo nala install github-desktop -y
 }
 
+# MINT SPECIFIC - UBUNUTU FLAG
 docker_install() {
     sudo nala install gnome-terminal -y
     # Add Docker's official GPG key:
