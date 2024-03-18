@@ -11,7 +11,7 @@ sudo nala install git -y
 sudo nala install nodejs -y
 sudo nala install mgba-qt -y
 sudo nala install imagemagick -y
-sudo nala install steam-installer -y
+# sudo nala install steam-installer -y
 
 #FLATPAKS
 flatpak install melonDS -y
@@ -30,8 +30,12 @@ code_install() {
 }
 
 ulauncher_isntall() {
-    sudo add-apt-repository universe -y
-    sudo add-apt-repository ppa:agornostal/ulauncher -y
+sudo nala update && sudo nala install -y gnupg
+    gpg --keyserver keyserver.ubuntu.com --recv 0xfaf1020699503176
+    gpg --export 0xfaf1020699503176 | sudo tee /usr/share/keyrings/ulauncher-archive-keyring.gpg > /dev/null
+    echo "deb [signed-by=/usr/share/keyrings/ulauncher-archive-keyring.gpg] \
+          http://ppa.launchpad.net/agornostal/ulauncher/ubuntu jammy main" \
+          | sudo tee /etc/apt/sources.list.d/ulauncher-jammy.list
     sudo nala update 
     sudo nala install ulauncher -y
     # THEME 
@@ -53,10 +57,10 @@ docker_install() {
     sudo nala update
     sudo nala install ca-certificates curl -y
     sudo install -m 0755 -d /etc/apt/keyrings
-    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
     sudo chmod a+r /etc/apt/keyrings/docker.asc
     # Add the repository to Apt sources:
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
         $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     sudo nala update
     wget "https://desktop.docker.com/linux/main/amd64/139021/docker-desktop-4.28.0-amd64.deb" -O /home/$SUDO_USER/Downloads/docker.deb 
