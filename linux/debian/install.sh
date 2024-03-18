@@ -11,6 +11,7 @@ sudo nala install git -y
 sudo nala install nodejs -y
 sudo nala install mgba-qt -y
 sudo nala install imagemagick -y
+sudo nala install gufw -y
 # sudo nala install steam-installer -y
 
 #FLATPAKS
@@ -30,7 +31,7 @@ code_install() {
 }
 
 ulauncher_isntall() {
-sudo nala update && sudo nala install -y gnupg
+    sudo nala update && sudo nala install -y gnupg
     gpg --keyserver keyserver.ubuntu.com --recv 0xfaf1020699503176
     gpg --export 0xfaf1020699503176 | sudo tee /usr/share/keyrings/ulauncher-archive-keyring.gpg > /dev/null
     echo "deb [signed-by=/usr/share/keyrings/ulauncher-archive-keyring.gpg] \
