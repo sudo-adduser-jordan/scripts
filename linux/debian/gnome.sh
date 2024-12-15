@@ -1,6 +1,6 @@
-
-
-
+gsettings set org.gnome.desktop.wm.keybindings switch-applications []
+gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Super>Tab', '<Alt>Tab']"
+gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,close"
 
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
