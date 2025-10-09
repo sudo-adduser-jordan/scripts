@@ -1,8 +1,9 @@
 # Scripts
 ```
-git clone https://github.com/sudo-adduser-jordan/scripts
+git clone https://codeberg.com/sudo-adduser-jordan/scripts
 ```
 
 
 
 
+                
