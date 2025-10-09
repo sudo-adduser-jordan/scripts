@@ -27,3 +27,4 @@ for %%x in (
     call git pull origin 
     @REM pause
 )
+
