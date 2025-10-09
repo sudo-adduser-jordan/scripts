@@ -24,3 +24,4 @@ for %%x in (
     call git clone https://github.com/sudo-adduser-jordan/%%x.git 
     @REM pause
 )
+
