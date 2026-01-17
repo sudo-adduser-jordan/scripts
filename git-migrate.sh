@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# --- Configuration ---
+FORGEJO_URL="https://your-forgejo-instance.com"
+FORGEJO_TOKEN="your_forgejo_token_here"
+FORGEJO_ORG="your_target_org_or_username"
+
+SOURCE_USER="github_username"
+SOURCE_TOKEN="your_github_pat_here"
+SERVICE="github" # Options: github, gitlab, gitea, forgejo
+
+# --- Script Logic ---
+while IFS= read -r REPO_NAME || [ -n "$REPO_NAME" ]; do
+    echo "Processing: $REPO_NAME..."
+
+    # Construct the migration request
+    # Note: clone_addr is the source URL
+    curl -X 'POST' \
+      "$FORGEJO_URL/api/v1/repos/migrate" \
+      -H "accept: application/json" \
+      -H "Authorization: token $FORGEJO_TOKEN" \
+      -H "Content-Type: application/json" \
+      -d "{
+      \"clone_addr\": \"https://github.com/$SOURCE_USER/$REPO_NAME.git\",
+      \"auth_token\": \"$SOURCE_TOKEN\",
+      \"items\": [\"issues\", \"pull_requests\", \"labels\", \"releases\", \"milestones\", \"wiki\"],
+      \"mirror\": false,
+      \"repo_name\": \"$REPO_NAME\",
+      \"repo_owner\": \"$FORGEJO_ORG\",
+      \"service\": \"$SERVICE\"
+    }"
+
+done < names.txt # input file
