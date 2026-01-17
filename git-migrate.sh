@@ -1,20 +1,12 @@
-#!/bin/bash
-
-# --- Configuration ---
 FORGEJO_URL="https://git.dblocks.net"
 FORGEJO_TOKEN="your_forgejo_token_here"
 FORGEJO_ORG="sudo-adduser-jordan"
 
 SOURCE_USER="sudo-adduser-jordan"
 SOURCE_TOKEN="your_github_pat_here"
-SERVICE="github" # Options: github, gitlab, gitea, forgejo
+SERVICE="github" # github, gitlab, gitea, forgejo
 
-# --- Script Logic ---
 while IFS= read -r REPO_NAME || [ -n "$REPO_NAME" ]; do
-    echo "Processing: $REPO_NAME..."
-
-    # Construct the migration request
-    # Note: clone_addr is the source URL
     curl -X 'POST' \
       "$FORGEJO_URL/api/v1/repos/migrate" \
       -H "accept: application/json" \
@@ -29,5 +21,4 @@ while IFS= read -r REPO_NAME || [ -n "$REPO_NAME" ]; do
       \"repo_owner\": \"$FORGEJO_ORG\",
       \"service\": \"$SERVICE\"
     }"
-
 done < names.txt # input file
