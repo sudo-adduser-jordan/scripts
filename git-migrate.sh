@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # --- Configuration ---
-FORGEJO_URL="https://your-forgejo-instance.com"
+FORGEJO_URL="https://git.dblocks.net"
 FORGEJO_TOKEN="your_forgejo_token_here"
-FORGEJO_ORG="your_target_org_or_username"
+FORGEJO_ORG="sudo-adduser-jordan"
 
-SOURCE_USER="github_username"
+SOURCE_USER="sudo-adduser-jordan"
 SOURCE_TOKEN="your_github_pat_here"
 SERVICE="github" # Options: github, gitlab, gitea, forgejo
 
