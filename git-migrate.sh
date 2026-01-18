@@ -1,12 +1,15 @@
 FORGEJO_URL="https://git.dblocks.net"
-FORGEJO_TOKEN="your_forgejo_token_here"
-FORGEJO_ORG="sudo-adduser-jordan"
-
-SOURCE_USER="sudo-adduser-jordan"
-SOURCE_TOKEN="your_github_pat_here"
 SERVICE="github" # github, gitlab, gitea, forgejo
 
+FORGEJO_ORG="username"
+SOURCE_USER="username"
+
+FORGEJO_TOKEN="token"
+SOURCE_TOKEN="token"
+
 while IFS= read -r REPO_NAME || [ -n "$REPO_NAME" ]; do
+    echo $SOURCE_USER/$REPO_NAME
+
     curl -X 'POST' \
       "$FORGEJO_URL/api/v1/repos/migrate" \
       -H "accept: application/json" \
@@ -20,5 +23,11 @@ while IFS= read -r REPO_NAME || [ -n "$REPO_NAME" ]; do
       \"repo_name\": \"$REPO_NAME\",
       \"repo_owner\": \"$FORGEJO_ORG\",
       \"service\": \"$SERVICE\"
-    }"
+    }" \
+    --insecure
+    
+    echo $REPO_NAME "complete"
+    sleep 30
 done < names.txt # input file
+# done < user-names.txt # input file
+# done < organization-names.txt # input file
