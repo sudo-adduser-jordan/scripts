@@ -1,0 +1,29 @@
+#!/bin/bash
+# SOURCE="forgejo" 
+SOURCE="github" 
+
+if [[ "$SOURCE" == "forgejo" ]]; then
+    echo Source -\> $SOURCE; echo
+
+
+
+
+
+
+fi
+
+if [[ "$SOURCE" == "github" ]]; then
+    echo Source -\> $SOURCE; echo
+
+    FILE=repositories.txt
+
+    gh auth status; echo
+
+    for RESPOSITORY in `cat $FILE`
+    do
+        gh repo clone $RESPOSITORY
+        echo
+    done
+fi
+
+

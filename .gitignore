@@ -1,7 +1,11 @@
-migrate
 names.txt
 repositories.txt
 organinzation-repositories.txt
 organization-names.txt
 user-names.txt
 user-repositories.txt
+
+# has tokens or passwords
+donotpush 
+
+
