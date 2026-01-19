@@ -1,14 +1,14 @@
 #!/bin/bash
-SOURCE="github" 
-# SOURCE="forgejo" 
+SERVICE="github" 
+# SERVICE="forgejo" 
 
-if [[ "$SOURCE" == "forgejo" ]]; then
-    echo Source -\> $SOURCE; echo 
+if [[ "$SERVICE" == "forgejo" ]]; then
+    echo SERVICE -\> $SERVICE; echo 
 
 fi
 
-if [[ "$SOURCE" == "github" ]]; then
-    echo Source -\> $SOURCE; echo 
+if [[ "$SERVICE" == "github" ]]; then
+    echo SERVICE -\> $SERVICE; echo 
 
     ROOT=/media
     USER=user1

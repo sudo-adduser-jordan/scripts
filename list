@@ -1,14 +1,14 @@
 #!/bin/bash
-SOURCE="github" 
-# SOURCE="forgejo" 
+SERVICE="github" 
+# SERVICE="forgejo" 
 
-if [[ "$SOURCE" == "forgejo" ]]; then
-    echo Source -\> $SOURCE; echo
+if [[ "$SERVICE" == "forgejo" ]]; then
+    echo SERVICE -\> $SERVICE; echo
 
 fi
 
-if [[ "$SOURCE" == "github" ]]; then
-    echo Source -\> $SOURCE; echo
+if [[ "$SERVICE" == "github" ]]; then
+    echo SERVICE -\> $SERVICE; echo
     gh api --paginate /user/repos --jq '.[].html_url' | tee repositories.txt
     # gh api --paginate /user/repos --jq '.[] | select(.owner.type == "User") | .html_url' | tee user-repositories.txt
     # gh api --paginate /user/repos --jq '.[] | select(.owner.type == "Organization") | .html_url' | tee organinzation-repositories.txt

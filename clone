@@ -1,19 +1,13 @@
 #!/bin/bash
-# SOURCE="forgejo" 
-SOURCE="github" 
+# SERVICE="forgejo" 
+SERVICE="github" 
 
-if [[ "$SOURCE" == "forgejo" ]]; then
-    echo Source -\> $SOURCE; echo
-
-
-
-
-
-
+if [[ "$SERVICE" == "forgejo" ]]; then
+    echo Source -\> $SERVICE; echo
 fi
 
-if [[ "$SOURCE" == "github" ]]; then
-    echo Source -\> $SOURCE; echo
+if [[ "$SERVICE" == "github" ]]; then
+    echo Source -\> $SERVICE; echo
 
     FILE=repositories.txt
 
