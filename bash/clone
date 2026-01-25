@@ -1,13 +1,17 @@
 #!/bin/bash
-# SERVICE="forgejo" 
-SERVICE="github" 
-FILE=repositories.txt
+SERVICE="forgejo" 
+FILE="repositories.txt"
+
 
 if [[ "$SERVICE" == "forgejo" ]]; then
     echo Source -\> $SERVICE; echo
 
-    for RESPOSITORY in `cat $FILE`
-    do
+    for REPOSITORY in $(cat $FILE); do
+        AUTH_URL=$(echo $REPOSITORY | sed "s/https:\/\//https:\/\/${TOKEN}@/")
+        echo
+        git clone $AUTH_URL
+    done
+
 fi
 
 if [[ "$SERVICE" == "github" ]]; then
@@ -19,7 +23,6 @@ if [[ "$SERVICE" == "github" ]]; then
         gh repo clone $RESPOSITORY
         echo
     done
-
 fi
 
 
