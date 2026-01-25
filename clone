@@ -1,23 +1,25 @@
 #!/bin/bash
 # SERVICE="forgejo" 
 SERVICE="github" 
+FILE=repositories.txt
 
 if [[ "$SERVICE" == "forgejo" ]]; then
     echo Source -\> $SERVICE; echo
+
+    for RESPOSITORY in `cat $FILE`
+    do
 fi
 
 if [[ "$SERVICE" == "github" ]]; then
     echo Source -\> $SERVICE; echo
 
-    FILE=repositories.txt
-
     gh auth status; echo
-
     for RESPOSITORY in `cat $FILE`
     do
         gh repo clone $RESPOSITORY
         echo
     done
+
 fi
 
 
