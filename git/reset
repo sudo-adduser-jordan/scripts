@@ -1,0 +1,6 @@
+git checkout --orphan reset_branch # create new branch
+git add . # add
+git commit -am "v0.0.1" # commit
+git branch -D main # delete branch
+git branch -m main # rename new branch
+git push -f origin main # push new branch
