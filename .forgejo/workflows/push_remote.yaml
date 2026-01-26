@@ -2,22 +2,25 @@ name: Push to Remotes
 
 on:
   push:
-    branches:
-      - main
 
 jobs:
-  push:
+
+  build:
     runs-on: docker
+    container:
+      image: ghcr.io/catthehacker/ubuntu:act-22.04
+
+    name: Push to Remotes
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
-            fetch-depth: 0  # This fetches all history for all branches and tags
+          fetch-depth: 0 # This fetches all history for all branches and tags
 
       - name: Configure Git
         run: |
           echo git config --global user.name "jordan"
           echo git config --global user.email "sudo-adduser-jordan@gmail.com"
-          
+
           git config --global user.name "jordan"
           git config --global user.email "sudo-adduser-jordan@gmail.com"
 
@@ -28,8 +31,8 @@ jobs:
           echo git remote add github https://github.com/${{ github.repository }}.git
           git remote add github https://github.com/${{ github.repository }}.git
 
-          echo git push https://$GITHUB_TOKEN@github.com/${{ github.repository }}.git
-          git push https://$GITHUB_TOKEN@github.com/${{ github.repository }}.git
+          echo git push -f https://$GITHUB_TOKEN@github.com/${{ github.repository }}.git
+          git push -f https://$GITHUB_TOKEN@github.com/${{ github.repository }}.git
 
       - name: Push to Codeberg
         env:
@@ -38,9 +41,9 @@ jobs:
           echo git remote add codeberg https://codeberg.org/${{ github.repository }}.git
           git remote add codeberg https://codeberg.org/${{ github.repository }}.git
 
-          echo git push https://$CODEBERG_TOKEN@codeberg.org/${{ github.repository }}.git
-          git push https://$CODEBERG_TOKEN@codeberg.org/${{ github.repository }}.git
-   
+          echo git push -f https://$CODEBERG_TOKEN@codeberg.org/${{ github.repository }}.git
+          git push -f https://$CODEBERG_TOKEN@codeberg.org/${{ github.repository }}.git
+
       - name: Push to GitLab
         env:
           GITLAB_TOKEN: ${{ secrets.TOKEN_GITLAB }}
@@ -48,6 +51,5 @@ jobs:
           echo git remote add gitlab https://gitlab.com/${{ github.repository }}.git
           git remote add gitlab https://gitlab.com/${{ github.repository }}.git
 
-          echo git push https://server:$GITLAB_TOKEN@gitlab.com/${{ github.repository }}.git
-          git push https://server:$GITLAB_TOKEN@gitlab.com/${{ github.repository }}.git
-
+          echo git push -f https://server:$GITLAB_TOKEN@gitlab.com/${{ github.repository }}.git
+          git push -f https://server:$GITLAB_TOKEN@gitlab.com/${{ github.repository }}.git
