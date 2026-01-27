@@ -18,9 +18,9 @@ if [[ "$SERVICE" == "github" ]]; then
     gh auth status
     echo
 
-    for RESPOSITORY in `cat $FILE`
+    while read -r REPOSITORY
     do
     cd $ROOT/$USER/$DRIVE/"$RESPOSITORY" && pwd && git pull
     echo    
-    done
+    done < "$FILE"
 fi
