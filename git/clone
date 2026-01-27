@@ -21,7 +21,7 @@ if [[ "$SERVICE" == "github" ]]; then
     gh auth status; echo
     while read -r REPOSITORY
     do
-        gh repo clone "$RESPOSITORY"
+        gh repo clone "$REPOSITORY"
         echo
     done < "$FILE"
 fi
