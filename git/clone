@@ -6,10 +6,11 @@ FILE="repositories.txt"
 if [[ "$SERVICE" == "forgejo" ]]; then
     echo Source -\> $SERVICE; echo
 
-    for REPOSITORY in $(cat $FILE); do
-        AUTH_URL=$(echo $REPOSITORY | sed "s/https:\/\//https:\/\/${TOKEN}@/")
+    for REPOSITORY in $(cat $FILE) 
+    do
+        AUTH_URL=$(echo "$REPOSITORY" | sed "s/https:\/\//https:\/\/${TOKEN}@/")
         echo
-        git clone $AUTH_URL
+        git clone "$AUTH_URL"
     done
 
 fi
@@ -18,9 +19,9 @@ if [[ "$SERVICE" == "github" ]]; then
     echo Source -\> $SERVICE; echo
 
     gh auth status; echo
-    for RESPOSITORY in `cat $FILE`
+    for RESPOSITORY in $(cat $FILE)
     do
-        gh repo clone $RESPOSITORY
+        gh repo clone "$RESPOSITORY"
         echo
     done
 fi
