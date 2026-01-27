@@ -20,7 +20,7 @@ if [[ "$SERVICE" == "github" ]]; then
 
     while read -r REPOSITORY
     do
-    cd $ROOT/$USER/$DRIVE/REPOSITORY && pwd && git pull
+    cd $ROOT/$USER/$DRIVE/"$REPOSITORY" && pwd && git pull
     echo    
     done < "$FILE"
 fi
