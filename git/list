@@ -4,8 +4,8 @@ TOKEN=""
 
 if [[ "$SERVICE" == "forgejo" ]]; then
     echo SERVICE -\> $SERVICE; echo
-    http https://git.dblocks.net/api/v1/user/repos?token=$TOKEN | jq -r '.[].name' | tee names.txt
-    http https://git.dblocks.net/api/v1/user/repos?token=$TOKEN | jq -r '.[].html_url' | tee repositories.txt
+    http https://git.dblocks.net/api/v1/user/repos?token="$TOKEN" | jq -r '.[].name' | tee names.txt
+    http https://git.dblocks.net/api/v1/user/repos?token="$TOKEN" | jq -r '.[].html_url' | tee repositories.txt
 fi
 
 if [[ "$SERVICE" == "github" ]]; then

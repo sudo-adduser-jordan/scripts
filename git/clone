@@ -6,7 +6,7 @@ FILE="repositories.txt"
 if [[ "$SERVICE" == "forgejo" ]]; then
     echo Source -\> $SERVICE; echo
 
-    while read REPOSITORY
+    while read -r REPOSITORY
     do
         AUTH_URL=$(echo "$REPOSITORY" | sed "s/https:\/\//https:\/\/${TOKEN}@/")
         echo
@@ -19,7 +19,7 @@ if [[ "$SERVICE" == "github" ]]; then
     echo Source -\> $SERVICE; echo
 
     gh auth status; echo
-    while read REPOSITORY
+    while read -r REPOSITORY
     do
         gh repo clone "$RESPOSITORY"
         echo

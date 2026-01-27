@@ -20,7 +20,7 @@ if [[ "$SERVICE" == "github" ]]; then
 
     for RESPOSITORY in `cat $FILE`
     do
-    cd $ROOT/$USER/$DRIVE/$RESPOSITORY && pwd && git pull
+    cd $ROOT/$USER/$DRIVE/"$RESPOSITORY" && pwd && git pull
     echo    
     done
 fi
