@@ -1,0 +1,2 @@
+#!/bin/bash
+for dir in */; do vol="${dir%/}"; docker volume create "$vol" && tar -c -C "$dir" . | docker run --rm -i -v "$vol":/data alpine tar -x -C /data; done

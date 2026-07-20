@@ -1,0 +1,2 @@
+#!/bin/bash
+for vol in $(docker volume ls -q); do mkdir -p "./$vol" && docker run --rm -v "$vol":/data alpine tar -c -C /data . | tar -x -C "./$vol"; done
