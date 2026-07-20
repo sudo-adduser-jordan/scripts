@@ -1,0 +1,25 @@
+#!/bin/bash
+SERVICE="github" 
+# SERVICE="forgejo" 
+
+if [[ "$SERVICE" == "forgejo" ]]; then
+    echo SERVICE -\> $SERVICE; echo 
+fi
+
+if [[ "$SERVICE" == "github" ]]; then
+    echo SERVICE -\> $SERVICE; echo 
+
+    ROOT=/media
+    USER=user1
+    DRIVE=CORSAIR
+    FILE=names.txt
+
+    gh auth status
+    echo
+
+    while read -r REPOSITORY
+    do
+    cd $ROOT/$USER/$DRIVE/"$REPOSITORY" && pwd && git pull
+    echo    
+    done < "$FILE"
+fi

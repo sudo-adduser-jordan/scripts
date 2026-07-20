@@ -1,0 +1,21 @@
+#!/bin/bash
+URLS="repositories.txt"
+NAMES=names.txt
+
+gh api --paginate /user/repos --jq '.[].html_url' | tee repositories.txt
+gh api --paginate /user/repos --jq '.[].name' | tee names.txt
+
+echo; gh auth status; echo
+while read -r REPOSITORY
+do
+    gh repo clone "$REPOSITORY"
+    echo
+done < "$URLS"
+
+echo; gh auth status; echo
+while read -r REPOSITORY 
+do
+    echo "$(pwd)/$REPOSITORY"
+    git -C "$REPOSITORY" pull
+    echo    
+done < "$NAMES"
