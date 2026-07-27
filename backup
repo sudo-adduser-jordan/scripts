@@ -19,3 +19,9 @@ do
     git -C "$REPOSITORY" pull
     echo    
 done < "$NAMES"
+
+
+for vol in $(docker volume ls -q); do mkdir -p "./$vol" && docker run --rm -v "$vol":/data alpine tar -c -C /data . | tar -x -C "./$vol"; done
+# for dir in */; do vol="${dir%/}"; docker volume create "$vol" && tar -c -C "$dir" . | docker run --rm -i -v "$vol":/data alpine tar -x -C /data; done
+# cp $HOME/.var/usebottles
+
