@@ -1,27 +1,34 @@
 #!/bin/bash
 URLS="repositories.txt"
-NAMES=names.txt
+NAMES="names.txt"
 
 gh api --paginate /user/repos --jq '.[].html_url' | tee repositories.txt
 gh api --paginate /user/repos --jq '.[].name' | tee names.txt
 
 echo; gh auth status; echo
-while read -r REPOSITORY
-do
-    gh repo clone "$REPOSITORY"
-    echo
-done < "$URLS"
 
-echo; gh auth status; echo
 while read -r REPOSITORY 
 do
-    echo "$(pwd)/$REPOSITORY"
-    git -C "$REPOSITORY" pull
-    echo    
+    if [ -d "$REPOSITORY" ]; then
+        echo "$(pwd)/$REPOSITORY"
+        git -C "$REPOSITORY" pull
+    else
+        gh repo clone "$REPOSITORY"
+    fi
+    echo
 done < "$NAMES"
 
+if [ "$(basename "$PWD")" = "GitHub" ]; then
+    for DIR in */; do
+        REPO_NAME="${DIR%/}"
+        if ! grep -Fxq "$REPO_NAME" "$NAMES"; then
+            rm -rfv "$REPO_NAME"
+        fi
+    done
 
-for vol in $(docker volume ls -q); do mkdir -p "./$vol" && docker run --rm -v "$vol":/data alpine tar -c -C /data . | tar -x -C "./$vol"; done
+    rm -fv "$URLS" "$NAMES"
+fi
+
+# for vol in $(docker volume ls -q); do mkdir -p "./$vol" && docker run --rm -v "$vol":/data alpine tar -c -C /data . | tar -x -C "./$vol"; done
 # for dir in */; do vol="${dir%/}"; docker volume create "$vol" && tar -c -C "$dir" . | docker run --rm -i -v "$vol":/data alpine tar -x -C /data; done
 # cp $HOME/.var/usebottles
-
