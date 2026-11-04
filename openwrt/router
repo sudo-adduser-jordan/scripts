@@ -1,88 +1,18 @@
 #!/bin/sh
-set -eu
 
-WAN_DEV="eth0"                   # Confirm this is the WAN port on your device
-LAN_DEVS="eth1"                  # Confirm these are LAN ports; exclude WAN
-COUNTRY="US"
-SSID="router"
-KEY=""
-CLIENT_IP="10.42.0.x"            # Your computer's actual upstream-network IP
+passwd
 
-# Install packages built for this exact OpenWrt release and kernel.
-if command -v apk >/dev/null 2>&1; then
-    apk update
-    apk add kmod-iwlwifi iwlwifi-firmware-iwl7265 wpad-openssl luci
-elif command -v opkg >/dev/null 2>&1; then
-    opkg update
-    opkg install kmod-iwlwifi iwlwifi-firmware-iwl7265 wpad-openssl luci
-else
-    echo "Neither apk nor opkg was found; install the required packages manually." >&2
-    exit 1
-fi
+apk update
+apk add iwlwifi-firmware-iwl7265d luci-theme-footstrap
 
-# WAN obtains an address from the upstream router.
-uci set network.wan='interface'
-uci set network.wan.proto='dhcp'
-uci set network.wan.device="$WAN_DEV"
-
-# Bridge LAN Ethernet ports.
-uci set network.br_lan='device'
-uci set network.br_lan.name='br-lan'
-uci set network.br_lan.type='bridge'
-uci -q delete network.br_lan.ports || true
-for dev in $LAN_DEVS; do
-    uci add_list network.br_lan.ports="$dev"
-done
+uci set luci.main.mediaurlbase='/luci-static/footstrap'
+uci commit luci
+/etc/init.d/uhttpd restart
 
 uci set network.lan='interface'
-uci set network.lan.proto='static'
-uci set network.lan.device='br-lan'
-uci set network.lan.ipaddr='192.168.8.1'
-uci set network.lan.netmask='255.255.255.0'
-
-# Configure the wireless AP.
-uci set wireless.radio0.country="$COUNTRY"
-uci set wireless.radio0.disabled='0'
-uci set wireless.radio0.band='2g'
-uci set wireless.radio0.channel='6'
-
-uci set wireless.ap='wifi-iface'
-uci set wireless.ap.device='radio0'
-uci set wireless.ap.mode='ap'
-uci set wireless.ap.network='lan'
-uci set wireless.ap.ssid="$SSID"
-uci set wireless.ap.encryption='psk2'
-uci set wireless.ap.key="$KEY"
-
-# Allow HTTPS to LuCI from this client only.
-uci set firewall.allow_luci='rule'
-uci set firewall.allow_luci.name='Allow-LuCI-from-trusted-host'
-uci set firewall.allow_luci.src='wan'
-uci set firewall.allow_luci.src_ip="$CLIENT_IP"
-uci set firewall.allow_luci.proto='tcp'
-uci set firewall.allow_luci.dest_port='443'
-uci set firewall.allow_luci.target='ACCEPT'
-
-# Enable password authentication for SSH.
-passwd
-uci set dropbear.@dropbear[0].PasswordAuth='on'
-uci set dropbear.@dropbear[0].RootPasswordAuth='on'
-
-# Allow SSH from this client only.
-uci set firewall.allow_ssh='rule'
-uci set firewall.allow_ssh.name='Allow-SSH-from-trusted-host'
-uci set firewall.allow_ssh.src='wan'
-uci set firewall.allow_ssh.src_ip="$CLIENT_IP"
-uci set firewall.allow_ssh.proto='tcp'
-uci set firewall.allow_ssh.dest_port='22'
-uci set firewall.allow_ssh.target='ACCEPT'
-
+uci set network.lan.proto='dhcp'
+uci set network.lan.device='eth0'
+uci delete network.@device[0]
 uci commit network
-uci commit wireless
-uci commit firewall
-uci commit dropbear
-
 /etc/init.d/network restart
-wifi reload
-/etc/init.d/firewall restart
-/etc/init.d/dropbear restart
+
