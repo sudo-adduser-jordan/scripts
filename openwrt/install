@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+IMAGE_URL="https://downloads.openwrt.org/releases/25.12.6/targets/x86/64/openwrt-25.12.6-x86-64-generic-ext4-combined-efi.img.gz"
+IMAGE="/tmp/openwrt-25.12.6-x86-64.img.gz"
+
+if [[ $# -ne 1 ]]; then
+  echo "Usage: sudo $0 /dev/sdX"
+  echo "Example: sudo $0 /dev/sdb"
+  exit 1
+fi
+
+DEVICE=$1
+
+[[ $EUID -eq 0 ]] || { echo "Run with sudo."; exit 1; }
+[[ -b "$DEVICE" ]] || { echo "Not a block device: $DEVICE"; exit 1; }
+[[ "$(lsblk -dn -o TYPE "$DEVICE")" == "disk" ]] || {
+  echo "Use the whole drive (e.g. /dev/sdb), not a partition (e.g. /dev/sdb1)."
+  exit 1
+}
+
+echo "Target drive:"
+lsblk -o NAME,SIZE,MODEL,TRAN,MOUNTPOINTS "$DEVICE"
+echo
+echo "WARNING: This will erase all data on $DEVICE."
+read -r -p "Type $DEVICE to proceed: " CONFIRM
+[[ "$CONFIRM" == "$DEVICE" ]] || { echo "Cancelled."; exit 1; }
+
+# curl -fL "$IMAGE_URL" -o "$IMAGE"
+# gzip -t "$IMAGE"
+
+# while read -r PART; do
+#   [[ -n "$PART" ]] && umount "$PART" 2>/dev/null || true
+# done < <(lsblk -lnpo NAME "$DEVICE" | tail -n +2)
+
+# gzip -dc "$IMAGE" | dd of="$DEVICE" bs=4M status=progress conv=fsync
+# sync
+
+# echo "OpenWrt written to $DEVICE."
