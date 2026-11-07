@@ -12,9 +12,16 @@ set -e
 apk update
 apk add kmod-iwlwifi iwlwifi-firmware-iwl7265d luci-theme-footstrap adblock luci-app-adblock
 
+# LuCI theme
 uci set luci.main.mediaurlbase='/luci-static/footstrap'
 uci commit luci
 /etc/init.d/uhttpd restart
+
+# Configure adblock to use dnsmasq
+uci set adblock.global.adb_enabled='1'
+uci set adblock.global.adb_dns='dnsmasq'
+uci commit adblock
+/etc/init.d/adblock enable
 
 # Wi-Fi radio
 uci set wireless.@wifi-device[0].band='2g'
@@ -37,7 +44,7 @@ uci set network.wan='interface'
 uci set network.wan.proto='dhcp'
 uci set network.wan.device='eth0'
 
-# LAN is Wi-Fi only; the router uses 192.168.1.1 on this network
+# Wi-Fi-only LAN; router address is 192.168.1.1
 uci set network.lan='interface'
 uci set network.lan.proto='static'
 uci set network.lan.device='br-lan'
@@ -54,3 +61,6 @@ uci -q delete network.br_lan.ports
 uci commit network
 /etc/init.d/network restart
 wifi reload
+
+# Start adblock
+/etc/init.d/adblock restart
