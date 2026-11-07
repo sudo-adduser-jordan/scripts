@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# passwd
+# uci set network.lan='interface'
+# uci set network.lan.proto='dhcp'
+# uci set network.lan.device='eth0'
+# uci delete network.@device[0]
+# uci commit network
+# /etc/init.d/network restart
+
+apk update
+apk add kmod-iwlwifi iwlwifi-firmware-iwl7265d luci-theme-footstrap adblock luci-app-adblock
+
+# apk add tcpdump-mini
+# uci set adblock.global.adb_report='1'
+# uci commit adblock
+# /etc/init.d/adblock restart
+# /etc/init.d/adblock start
+
+uci set luci.main.mediaurlbase='/luci-static/footstrap'
+uci commit luci
+/etc/init.d/uhttpd restart
+
+uci set wireless.@wifi-device[0].band='2g'
+uci set wireless.@wifi-device[0].channel='6'
+uci set wireless.@wifi-device[0].htmode='HT20'
+uci set wireless.@wifi-device[0].country='US'
+uci set wireless.@wifi-device[0].disabled='0'
+
+uci set wireless.@wifi-iface[0].mode='ap'
+uci set wireless.@wifi-iface[0].ssid='router'
+uci set wireless.@wifi-iface[0].encryption='psk2'
+uci set wireless.@wifi-iface[0].key=''
+uci set wireless.@wifi-iface[0].network='lan'
+uci set wireless.@wifi-iface[0].disabled='0'
+uci commit wireless
+wifi reload
+
+uci set network.lan='interface'
+uci set network.lan.proto='dhcp'
+uci set network.lan.device='eth0'
+uci delete network.@device[0]
+
+uci set network.br_lan='device'
+uci set network.br_lan.name='br-lan'
+uci set network.br_lan.type='bridge'
+uci add_list network.br_lan.ports='eth0'
+uci set network.lan.device='br-lan'
+uci commit network
+/etc/init.d/network restart
+
+
